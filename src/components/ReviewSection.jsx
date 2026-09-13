@@ -53,7 +53,7 @@ export default function ReviewSection() {
   };
 
   return (
-    <section id="contact" className="relative bg-slate-100 dark:bg-black py-12 sm:py-16 transition-colors duration-200">
+    <section id="contact" className="relative bg-slate-100 dark:bg-black py-12 sm:py-16 transition-colors duration-200 scroll-mt-24 sm:scroll-mt-28">
       <div className="max-w-[1540px] w-[96%] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Aligned left-to-center */}

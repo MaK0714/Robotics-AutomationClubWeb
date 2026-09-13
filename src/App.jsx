@@ -6,6 +6,7 @@ import FeatureCards from './components/FeatureCards';
 import TeamSection from './components/TeamSection';
 import TeamMembers from './components/TeamMembers';
 import ReviewSection from './components/ReviewSection';
+import Footer from './components/Footer';
 
 export default function App() {
   // Theme state: defaults strictly to 'dark' mode
@@ -73,6 +74,9 @@ export default function App() {
         {/* 6. User Reviews & Feedback */}
         <ReviewSection />
       </main>
+
+      {/* 7. Footer */}
+      <Footer />
     </div>
   );
 }

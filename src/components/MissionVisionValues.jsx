@@ -20,7 +20,7 @@ export default function MissionVisionValues() {
   ];
 
   return (
-    <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-20 bg-slate-100 dark:bg-black transition-colors duration-200">
+    <section id="about" className="relative pt-8 pb-16 sm:pt-12 sm:pb-20 bg-slate-100 dark:bg-black transition-colors duration-200 scroll-mt-24 sm:scroll-mt-28">
       <div className="max-w-[1580px] w-[97%] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 items-stretch">
           {cards.map((card, index) => (

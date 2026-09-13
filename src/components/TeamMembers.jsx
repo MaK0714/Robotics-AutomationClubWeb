@@ -7,7 +7,7 @@ const members = [
     id: 1,
     name: 'Mayuresh Kulkarni',
     role: 'AI/ML Head',
-    description: 'Learning and teaching AI/ML to all.Utilizing AI/ML for Robotics & Automation',
+    description: 'Learning AI/ML.Utilizing AI/ML for Robotics & Automation',
     photo: '/members/alex.jpg',
   },
   {
@@ -91,8 +91,8 @@ function Avatar({ src, name, size = 96 }) {
 
   return (
     <span
-      className="w-full h-full flex items-center justify-center text-white font-bold"
-      style={{ fontSize: size * 0.32, background: 'transparent' }}
+      className="w-full h-full flex items-center justify-center font-extrabold tracking-wider text-slate-800 dark:text-white select-none transition-colors"
+      style={{ fontSize: size * 0.34, background: 'transparent' }}
     >
       {initials}
     </span>
@@ -240,7 +240,7 @@ export default function TeamMembers() {
   };
 
   return (
-    <section id="team" className="relative bg-slate-100 dark:bg-black py-12 sm:py-16 overflow-x-clip transition-colors duration-200">
+    <section id="team" className="relative bg-slate-100 dark:bg-black py-12 sm:py-16 overflow-x-clip transition-colors duration-200 scroll-mt-24 sm:scroll-mt-28">
       {/* ── Section heading ── */}
       <div className="text-center mb-6 sm:mb-8 px-4">
         <p className="text-sky-600 dark:text-sky-400 font-mono font-semibold uppercase tracking-[0.25em] sm:tracking-[0.35em] mb-3 sm:mb-5 transition-colors"
@@ -372,10 +372,10 @@ export default function TeamMembers() {
             >
               <div
                 className={`
-                  rounded-full overflow-hidden border-2 bg-white dark:bg-[#1e1f24]
-                  transition-all duration-300
+                  rounded-full overflow-hidden border-2 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-[#22242c] dark:to-[#17181f]
+                  transition-all duration-300 shadow-md shadow-slate-300/50 dark:shadow-none
                   ${isFocused
-                    ? 'border-sky-500 dark:border-sky-400'
+                    ? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-400/40 dark:ring-sky-500/30'
                     : 'border-slate-300 dark:border-[#2e3038] hover:border-sky-500/70'}
                 `}
                 style={{ width: avSize, height: avSize }}
@@ -383,8 +383,8 @@ export default function TeamMembers() {
                 <Avatar src={member.photo} name={member.name} size={avSize} />
               </div>
               <span
-                className={`font-semibold leading-tight text-center truncate max-w-full
-                  ${isFocused ? 'text-sky-600 dark:text-sky-300 font-bold' : 'text-slate-700 dark:text-gray-400'}`}
+                className={`font-bold leading-tight text-center truncate max-w-full transition-colors
+                  ${isFocused ? 'text-sky-600 dark:text-sky-300' : 'text-slate-800 dark:text-gray-300'}`}
                 style={{ fontSize: isMobile ? '10px' : '12px' }}
               >
                 {member.name.split(' ')[0]}
@@ -460,7 +460,7 @@ export default function TeamMembers() {
 
                 {/* Avatar inside card (clean outline, no glow) */}
                 <div
-                  className="rounded-full overflow-hidden border-2 border-sky-500 dark:border-sky-400 bg-slate-100 dark:bg-[#12131a] flex-shrink-0"
+                  className="rounded-full overflow-hidden border-2 border-sky-500 dark:border-sky-400 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-[#22242c] dark:to-[#17181f] flex-shrink-0 shadow-md shadow-slate-200/50 dark:shadow-none"
                   style={{ width: isMobile ? 74 : 90, height: isMobile ? 74 : 90 }}
                 >
                   <Avatar
