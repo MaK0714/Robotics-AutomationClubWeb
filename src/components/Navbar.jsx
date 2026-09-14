@@ -7,8 +7,7 @@ export default function Navbar({ theme = 'dark', toggleTheme = () => {} }) {
   const navLinks = [
     { name: 'Home', href: '#' },
     { name: 'About', href: '#about' },
-    { name: 'Wings', href: '#domains' },
-    { name: 'Projects', href: '#projects' },
+    { name: 'Wings', href: '#wings' },
     { name: 'Events', href: '#events' },
     { name: 'Team', href: '#team' },
     { name: 'Review', href: '#contact' },

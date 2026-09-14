@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1789375564816,
+    "title": "Test",
+    "category": "Workshop",
+    "date": "September 2026",
+    "duration": "Session",
+    "description": "testing only",
+    "tags": [
+      "python",
+      "ROS"
+    ],
+    "slidesUrl": "",
+    "codeUrl": "",
+    "docsUrl": "https://youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&si=SdWVXwBIK4Q301XX",
+    "createdAt": "2026-09-14T08:46:04.816Z"
+  }
+]

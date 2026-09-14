@@ -8,6 +8,10 @@ import TeamMembers from './components/TeamMembers';
 import ReviewSection from './components/ReviewSection';
 import Footer from './components/Footer';
 import MembersPage from './components/MembersPage';
+import WingsSection from './components/WingsSection';
+import UpcomingPage from './components/UpcomingPage';
+import PeerLearningPage from './components/PeerLearningPage';
+import DigitalLibraryPage from './components/DigitalLibraryPage';
 
 export default function App() {
   // Theme state: defaults strictly to 'dark' mode
@@ -93,6 +97,52 @@ export default function App() {
     );
   }
 
+  // If route is /wings/software (or /software), render Software Upcoming Page
+  if (currentRoute === '/wings/software' || currentRoute === '/software' || currentRoute === '/wings-software') {
+    return (
+      <UpcomingPage
+        wing="Software"
+        theme={theme}
+        toggleTheme={toggleTheme}
+        navigate={navigate}
+      />
+    );
+  }
+
+  // If route is /wings/hardware (or /hardware), render Hardware Upcoming Page
+  if (currentRoute === '/wings/hardware' || currentRoute === '/hardware' || currentRoute === '/wings-hardware') {
+    return (
+      <UpcomingPage
+        wing="Hardware"
+        theme={theme}
+        toggleTheme={toggleTheme}
+        navigate={navigate}
+      />
+    );
+  }
+
+  // If route is /peer-learning (or /peerlearning), render Peer Learning Resources Page
+  if (currentRoute === '/peer-learning' || currentRoute === '/peerlearning') {
+    return (
+      <PeerLearningPage
+        theme={theme}
+        toggleTheme={toggleTheme}
+        navigate={navigate}
+      />
+    );
+  }
+
+  // If route is /digital-library (or /library), render Digital Library Page
+  if (currentRoute === '/digital-library' || currentRoute === '/library' || currentRoute === '/digitallibrary') {
+    return (
+      <DigitalLibraryPage
+        theme={theme}
+        toggleTheme={toggleTheme}
+        navigate={navigate}
+      />
+    );
+  }
+
   // Otherwise render main landing page
   return (
     <div className={`min-h-screen bg-slate-100 dark:bg-black text-slate-900 dark:text-white font-sans selection:bg-cyan-500 selection:text-black transition-colors duration-200 ${theme === 'dark' ? 'dark' : ''}`}>
@@ -104,13 +154,16 @@ export default function App() {
         {/* 1. Description & Video */}
         <HeroSection />
         
-        {/* 2. Vision, Mission, Values */}
+        {/* 2. Vision, Mission, Values (About) */}
         <MissionVisionValues />
 
-        {/* 3. Peer Learning, Digital Library, Reach Your Goals */}
-        <FeatureCards />
+        {/* 3. WINGS Section (Between About and Team Pic) */}
+        <WingsSection navigate={navigate} />
 
-        {/* 4. Large Team Photo Section */}
+        {/* 4. Peer Learning, Digital Library */}
+        <FeatureCards navigate={navigate} />
+
+        {/* 5. Large Team Photo Section */}
         <TeamSection />
 
         {/* 5. Individual Team Members — Orbital carousel */}

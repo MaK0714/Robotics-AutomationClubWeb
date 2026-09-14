@@ -1,7 +1,46 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Linkedin, Instagram, Youtube, ArrowUp } from 'lucide-react';
 
 export default function Footer({ navigate = () => {} }) {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const contactRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (contactRef.current && !contactRef.current.contains(e.target)) {
+        setIsContactOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsContactOpen(false);
+      }
+    };
+    if (isContactOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isContactOpen]);
+
+  const contactList = [
+    {
+      name: 'Mayuresh Kulkarni',
+      email: '325mayuresh0012@dbit.in',
+    },
+    {
+      name: 'Rohan Jagdale',
+      email: 'rohanjagdale0905@gmail.com',
+    },
+    {
+      name: 'Om Patil',
+      email: '225om139@gmail.com',
+    },
+  ];
+
   const handleScroll = (e, href) => {
     if (href.startsWith('#')) {
       e.preventDefault();
@@ -20,7 +59,7 @@ export default function Footer({ navigate = () => {} }) {
   };
 
   return (
-    <footer className="relative bg-white dark:bg-[#08080a] border-t border-slate-200 dark:border-[#18181c] transition-colors duration-200 pt-14 sm:pt-20 pb-10 sm:pb-12 text-slate-800 dark:text-neutral-200">
+    <footer className="relative bg-white dark:bg-[#08080a] border-t border-slate-200 dark:border-[#18181c] transition-colors duration-200 pt-10 sm:pt-14 lg:pt-16 pb-10 sm:pb-12 text-slate-800 dark:text-neutral-200">
       <div className="max-w-[1540px] w-[94%] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Grid: Well balanced across full width */}
@@ -61,18 +100,18 @@ export default function Footer({ navigate = () => {} }) {
                 Team
               </a>
               <a
-                href="#about"
-                onClick={(e) => handleScroll(e, '#about')}
+                href="#wings"
+                onClick={(e) => handleScroll(e, '#wings')}
                 className="text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
-                Vision & Mission
+                Wings
               </a>
               <a
                 href="#contact"
                 onClick={(e) => handleScroll(e, '#contact')}
                 className="text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
               >
-                Contact
+                Leave Review
               </a>
               <button
                 type="button"
@@ -81,13 +120,39 @@ export default function Footer({ navigate = () => {} }) {
               >
                 Members List
               </button>
-              <a
-                href="#contact"
-                onClick={(e) => handleScroll(e, '#contact')}
-                className="text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
-              >
-                Leave Review
-              </a>
+              {/* Contact with Pop-up Card */}
+              <div className="relative inline-block" ref={contactRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsContactOpen((prev) => !prev)}
+                  className={`text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors cursor-pointer text-left ${
+                    isContactOpen ? 'text-sky-600 dark:text-sky-400 font-semibold' : ''
+                  }`}
+                >
+                  Contact
+                </button>
+
+                {/* Pop-up Card showing written info only (scaled up +25%) */}
+                {isContactOpen && (
+                  <div className="absolute bottom-full mb-3 left-0 sm:-left-4 z-50 w-[310px] sm:w-[350px] rounded-2xl bg-white dark:bg-[#121318] border border-slate-200 dark:border-[#282a36] p-5 shadow-2xl shadow-slate-300/60 dark:shadow-black/90 animate-fade-in text-left">
+                    <div className="space-y-4">
+                      {contactList.map((contact, idx) => (
+                        <div key={idx}>
+                          <p className="text-[17px] sm:text-[1.1rem] font-bold text-slate-900 dark:text-white leading-tight">
+                            {contact.name}
+                          </p>
+                          <a
+                            href={`mailto:${contact.email}`}
+                            className="text-[14px] sm:text-[15px] font-mono text-slate-600 dark:text-neutral-400 hover:text-sky-600 dark:hover:text-sky-400 transition-colors break-all block mt-1"
+                          >
+                            {contact.email}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -146,16 +211,20 @@ export default function Footer({ navigate = () => {} }) {
 
         {/* Bottom Full-Width Bar: Balanced Attribution & Copyright */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <p className="text-sm sm:text-[1.05rem] text-slate-600 dark:text-neutral-400">
-            Designed and Developed by{' '}
-            <span className="text-sky-600 dark:text-sky-400 font-semibold">
-              Mayuresh Kulkarni
-            </span>{' '}
-            and{' '}
-            <span className="text-sky-600 dark:text-sky-400 font-semibold">
-              Rohan Jagdale
-            </span>
-          </p>
+          <div className="flex flex-col gap-1 text-center md:text-left">
+            <p className="text-sm sm:text-[1.05rem] text-slate-600 dark:text-neutral-400">
+              Designed and Developed by{' '}
+              <span className="text-sky-600 dark:text-sky-400 font-semibold">
+                Mayuresh Kulkarni
+              </span>
+            </p>
+            <p className="text-sm sm:text-[1.05rem] text-slate-600 dark:text-neutral-400">
+              Maintained by{' '}
+              <span className="text-sky-600 dark:text-sky-400 font-semibold">
+                Rohan Jagdale
+              </span>
+            </p>
+          </div>
           <p className="text-xs sm:text-[0.95rem] text-slate-500 dark:text-neutral-500 font-mono">
             © 2026 Robotics & Automation Club. All rights reserved.
           </p>

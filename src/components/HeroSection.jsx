@@ -14,7 +14,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-24 bg-slate-100 dark:bg-black transition-colors duration-200">
+    <section className="relative overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-14 lg:pb-16 bg-slate-100 dark:bg-black transition-colors duration-200">
       <div className="max-w-[1540px] w-[96%] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Single container div containing both Description and Video */}
         <div className="relative w-full rounded-[32px] sm:rounded-[42px] bg-[#dee4e5] overflow-hidden p-6 sm:p-8 lg:p-12 shadow-2xl shadow-neutral-900/40">

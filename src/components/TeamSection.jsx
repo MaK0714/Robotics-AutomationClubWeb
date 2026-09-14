@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function TeamSection() {
   return (
-    <section className="relative pt-6 pb-24 sm:pt-8 sm:pb-32 bg-slate-100 dark:bg-black transition-colors duration-200">
+    <section className="relative py-10 sm:py-14 lg:py-16 bg-slate-100 dark:bg-black transition-colors duration-200">
       <div className="max-w-[1580px] w-[97%] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Full-width Team Photo Container */}
         <div className="relative w-full rounded-3xl sm:rounded-[36px] overflow-hidden border border-slate-200 dark:border-[#2e3038] bg-white dark:bg-[#1e1f24] shadow-xl dark:shadow-2xl shadow-slate-200/50 dark:shadow-black/90 group">

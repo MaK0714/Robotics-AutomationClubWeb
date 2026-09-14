@@ -12,53 +12,103 @@ const members = [
   },
   {
     id: 2,
-    name: 'Priya Sharma',
-    role: 'Vice President',
-    description: "Computer vision enthusiast driving the club's AI research wing. Expert in Python, ROS and deep-learning pipelines.",
+    name: 'Om Patil',
+    role: 'Chairperson',
+    description: "Computer vision enthusiast. Expert in Python, ROS and Hardware.",
     photo: '/members/priya.jpg',
   },
   {
     id: 3,
-    name: 'Jake Williams',
-    role: 'Technical Lead',
-    description: 'Hardware maestro responsible for PCB design, motor control and all things mechanical.',
+    name: 'Lipun',
+    role: 'Vice Chairperson',
+    description: 'Hardware maestro responsible for, motor control and all things mechanical.',
     photo: '/members/jake.jpg',
   },
   {
     id: 4,
-    name: 'Sara Lee',
-    role: 'Design Head',
-    description: 'CAD & 3-D printing specialist. Brings every robot concept from sketch to physical prototype.',
+    name: 'Ananya',
+    role: 'Documentation',
+    description: 'Responsible for all docuumentations.',
     photo: '/members/sara.jpg',
   },
   {
     id: 5,
-    name: 'Rahul Mehta',
-    role: 'Software Lead',
-    description: 'Full-stack developer and ROS 2 contributor. Builds the brain behind every autonomous system.',
+    name: 'Keya',
+    role: 'Treasurer',
+    description: 'Responsible for all money and finance related things.',
     photo: '/members/rahul.jpg',
   },
   {
     id: 6,
-    name: 'Emily Zhao',
-    role: 'Events Coordinator',
-    description: 'Organises workshops, hackathons and inter-college competitions that put RAC on the map.',
+    name: 'Prachiti solkar',
+    role: 'Design head',
+    description: 'great in designing.Extremely talented and responsible for all design related things.',
     photo: '/members/emily.jpg',
   },
   {
     id: 7,
-    name: 'Omar Hassan',
-    role: 'Research Lead',
-    description: 'Published researcher in SLAM and path-planning algorithms. Mentors the junior research team.',
+    name: 'Harsh Dhamane',
+    role: 'Technical head',
+    description: 'Responsible for all tech related decisions.',
     photo: '/members/omar.jpg',
   },
   {
     id: 8,
-    name: 'Nina Patel',
-    role: 'PR & Outreach',
-    description: "Brand storyteller and social-media strategist who amplifies RAC's reach across campuses.",
+    name: 'Meet Shinde',
+    role: 'Joint Technical head',
+    description: "Helping Technical head and Responsible for all tech related decisions.",
     photo: '/members/nina.jpg',
   },
+    {
+    id: 9,
+    name: 'Anshika Verma',
+    role: 'Joint AI/ML head',
+    description: "Helping AI/ML head and responsible for all AI/ML related decisions.",
+    photo: '/members/nina.jpg',
+  },
+    {
+    id: 10,
+    name: 'Sahithi',
+    role: 'Mechanical head',
+    description: "Enthusiast in mechanical field .",
+    photo: '/members/nina.jpg',
+  },
+    {
+    id: 11,
+    name: 'Rohan Jagdale',
+    role: 'Website maintainer',
+    description: "Maintains website.",
+    photo: '/members/nina.jpg',
+  },
+    {
+    id: 12,
+    name: 'Suraj',
+    role: 'Electronics head',
+    description: " Responsible for all Electronics related decisions.",
+    photo: '/members/nina.jpg',
+  },
+    {
+    id: 13,
+    name: 'Dhruvesh',
+    role: 'Secretary ',
+    description: "Manages day to day operations and communications.",
+    photo: '/members/nina.jpg',
+  },
+    {
+    id: 14,
+    name: 'Arisuthan',
+    role: 'Joint Secretary',
+    description: "Helping secretary and helps in Managing day to day operations and communications.",
+    photo: '/members/nina.jpg',
+  },
+    {
+    id: 15,
+    name: 'Siddhi',
+    role: 'Pr head',
+    description: "Responsible for all pr related decisions.",
+    photo: '/members/nina.jpg',
+  },
+
   
 ];
 
@@ -69,6 +119,11 @@ const GEAR_PATH =
 // ─── AVATAR FALLBACK ─────────────────────────────────────────────────────────
 function Avatar({ src, name, size = 96 }) {
   const [errored, setErrored] = useState(false);
+
+  useEffect(() => {
+    setErrored(false);
+  }, [src]);
+
   const initials = name
     .split(' ')
     .map((w) => w[0])
@@ -99,15 +154,33 @@ function Avatar({ src, name, size = 96 }) {
   );
 }
 
+const BATCH_SIZE = 8;
+
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 export default function TeamMembers() {
-  const count = members.length;
+  const totalBatches = Math.ceil(members.length / BATCH_SIZE);
+  const [batchIndex, setBatchIndex] = useState(0);
+  const [batchFade, setBatchFade] = useState(true);
   const [angleOffset, setAngleOffset] = useState(0);
-  const [focused, setFocused]         = useState(null);
-  const [paused, setPaused]           = useState(false);
-  const rafRef      = useRef(null);
+  const [focusedSlot, setFocusedSlot] = useState(null);
+  const [paused, setPaused] = useState(false);
+
+  const rafRef = useRef(null);
   const lastTimeRef = useRef(null);
-  const SPEED = 0.010; // degrees per ms
+  const accumulatedAngleRef = useRef(0);
+  const batchIndexRef = useRef(batchIndex);
+  batchIndexRef.current = batchIndex;
+  const focusedSlotRef = useRef(focusedSlot);
+  focusedSlotRef.current = focusedSlot;
+  const isTransitioningRef = useRef(false);
+
+  const SPEED = 0.018; // degrees per ms (smooth ~20s per 360-deg rotation)
+
+  // Slice members for the active batch
+  const activeMembers = members.slice(
+    batchIndex * BATCH_SIZE,
+    (batchIndex + 1) * BATCH_SIZE
+  );
 
   // Responsive layout state dynamically calculated for any screen & member count
   const [layout, setLayout] = useState({
@@ -138,8 +211,8 @@ export default function TeamMembers() {
       else if (w < 768) targetOrbitR = Math.min(155, maxStageR - 48);
       else targetOrbitR = Math.min(Math.round(w * 0.176), 235);
 
-      // Dynamically shrink avatar if there are many members so they never overlap
-      const n = Math.max(1, count);
+      // Max members on orbit simultaneously (capped at BATCH_SIZE = 8)
+      const n = Math.max(1, Math.min(members.length, BATCH_SIZE));
       const circ = 2 * Math.PI * targetOrbitR;
       const arcPerMember = circ / n;
       const maxAvForCount = Math.floor(arcPerMember - minGap);
@@ -167,15 +240,47 @@ export default function TeamMembers() {
     updateLayout();
     window.addEventListener('resize', updateLayout);
     return () => window.removeEventListener('resize', updateLayout);
-  }, [count]);
+  }, []);
 
-  // Auto-rotate
+  const closeFocus = () => {
+    setFocusedSlot(null);
+    setPaused(false);
+  };
+
+  const switchBatch = (newIdx) => {
+    if (newIdx === batchIndexRef.current || isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    closeFocus();
+    accumulatedAngleRef.current = 0;
+    setBatchFade(false);
+
+    setTimeout(() => {
+      setBatchIndex(newIdx);
+      setBatchFade(true);
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+      }, 350);
+    }, 350);
+  };
+
+  // Auto-rotate and batch switch after 360 degrees
   useEffect(() => {
     if (paused) return;
     const tick = (ts) => {
       if (lastTimeRef.current !== null) {
         const delta = ts - lastTimeRef.current;
-        setAngleOffset((prev) => (prev + SPEED * delta) % 360);
+        const angleDelta = SPEED * delta;
+        setAngleOffset((prev) => (prev + angleDelta) % 360);
+
+        // Every full 360 degree rotation, transition to the next batch smoothly
+        if (totalBatches > 1 && focusedSlotRef.current === null && !isTransitioningRef.current) {
+          accumulatedAngleRef.current += angleDelta;
+          if (accumulatedAngleRef.current >= 360) {
+            accumulatedAngleRef.current = 0;
+            const nextBatch = (batchIndexRef.current + 1) % totalBatches;
+            switchBatch(nextBatch);
+          }
+        }
       }
       lastTimeRef.current = ts;
       rafRef.current = requestAnimationFrame(tick);
@@ -185,24 +290,19 @@ export default function TeamMembers() {
       cancelAnimationFrame(rafRef.current);
       lastTimeRef.current = null;
     };
-  }, [paused]);
+  }, [paused, totalBatches]);
 
-  const handleCardClick = (idx) => {
-    const opening = idx !== focused;
-    setFocused(opening ? idx : null);
+  const handleCardClick = (slotIdx) => {
+    const opening = slotIdx !== focusedSlot;
+    setFocusedSlot(opening ? slotIdx : null);
     setPaused(opening);
-  };
-
-  const closeFocus = () => {
-    setFocused(null);
-    setPaused(false);
   };
 
   const cardRef = useRef(null);
 
   // Close card when clicking/tapping anywhere outside or pressing Escape
   useEffect(() => {
-    if (focused === null) return;
+    if (focusedSlot === null) return;
 
     const handleClickOutside = (e) => {
       if (cardRef.current && !cardRef.current.contains(e.target)) {
@@ -227,20 +327,22 @@ export default function TeamMembers() {
       document.removeEventListener('pointerdown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [focused]);
+  }, [focusedSlot]);
 
   const { orbitR, avSize, hubSize, isMobile, winWidth } = layout;
   const overhang = Math.round(avSize / 2 + (isMobile ? 16 : 22));
   const stageSize = (orbitR + overhang) * 2;
 
   // Current angle (rad) of the focused member
-  const getFocusedAngle = (idx) => {
-    const angleDeg = (360 / count) * idx + angleOffset;
+  const getFocusedAngle = (slotIdx) => {
+    const angleDeg = (360 / activeMembers.length) * slotIdx + angleOffset;
     return (angleDeg * Math.PI) / 180;
   };
 
+  const focusedMember = focusedSlot !== null ? activeMembers[focusedSlot] : null;
+
   return (
-    <section id="team" className="relative bg-slate-100 dark:bg-black py-12 sm:py-16 overflow-x-clip transition-colors duration-200 scroll-mt-24 sm:scroll-mt-28">
+    <section id="team" className="relative bg-slate-100 dark:bg-black py-10 sm:py-14 lg:py-16 overflow-x-clip transition-colors duration-200 scroll-mt-20 sm:scroll-mt-24">
       {/* ── Section heading ── */}
       <div className="text-center mb-6 sm:mb-8 px-4">
         <p className="text-sky-600 dark:text-sky-400 font-mono font-semibold uppercase tracking-[0.25em] sm:tracking-[0.35em] mb-3 sm:mb-5 transition-colors"
@@ -260,8 +362,6 @@ export default function TeamMembers() {
       <div
         className="relative mx-auto select-none"
         style={{ width: stageSize, height: stageSize, maxWidth: '100%' }}
-        onMouseEnter={() => { if (focused === null && !isMobile) setPaused(true); }}
-        onMouseLeave={() => { if (focused === null && !isMobile) setPaused(false); }}
       >
         {/* Central Mechanical Gear Hub */}
         <div
@@ -345,57 +445,64 @@ export default function TeamMembers() {
           }}
         />
 
-        {/* Member nodes */}
-        {members.map((member, idx) => {
-          const angleDeg = (360 / count) * idx + angleOffset;
-          const angleRad = (angleDeg * Math.PI) / 180;
-          const x = Math.cos(angleRad) * orbitR;
-          const y = Math.sin(angleRad) * orbitR;
-          const isFocused = focused === idx;
+        {/* Active Batch Member nodes with smooth fade transition */}
+        <div
+          className={`absolute inset-0 pointer-events-none transition-all duration-300 ease-in-out ${
+            batchFade ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}
+        >
+          {activeMembers.map((member, idx) => {
+            const angleDeg = (360 / activeMembers.length) * idx + angleOffset;
+            const angleRad = (angleDeg * Math.PI) / 180;
+            const x = Math.cos(angleRad) * orbitR;
+            const y = Math.sin(angleRad) * orbitR;
+            const isFocused = focusedSlot === idx;
 
-          return (
-            <button
-              key={member.id}
-              data-member-btn="true"
-              onClick={() => handleCardClick(idx)}
-              className={`
-                absolute flex flex-col items-center gap-[2px] sm:gap-[3px]
-                transition-all duration-300 ease-out
-                ${isFocused ? 'z-20 scale-110' : 'z-10 scale-100 hover:scale-110'}
-              `}
-              style={{
-                width: avSize + (isMobile ? 12 : 20),
-                top: '50%',
-                left: '50%',
-                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-              }}
-            >
-              <div
+            return (
+              <button
+                key={member.id}
+                data-member-btn="true"
+                onClick={() => handleCardClick(idx)}
                 className={`
-                  rounded-full overflow-hidden border-2 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-[#22242c] dark:to-[#17181f]
-                  transition-all duration-300 shadow-md shadow-slate-300/50 dark:shadow-none
-                  ${isFocused
-                    ? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-400/40 dark:ring-sky-500/30'
-                    : 'border-slate-300 dark:border-[#2e3038] hover:border-sky-500/70'}
+                  ${batchFade ? 'pointer-events-auto' : 'pointer-events-none'}
+                  absolute flex flex-col items-center gap-[2px] sm:gap-[3px]
+                  transition-transform duration-300 ease-out
+                  ${isFocused ? 'z-20 scale-110' : 'z-10 scale-100 hover:scale-110'}
                 `}
-                style={{ width: avSize, height: avSize }}
+                style={{
+                  width: avSize + (isMobile ? 12 : 20),
+                  top: '50%',
+                  left: '50%',
+                  transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                }}
               >
-                <Avatar src={member.photo} name={member.name} size={avSize} />
-              </div>
-              <span
-                className={`font-bold leading-tight text-center truncate max-w-full transition-colors
-                  ${isFocused ? 'text-sky-600 dark:text-sky-300' : 'text-slate-800 dark:text-gray-300'}`}
-                style={{ fontSize: isMobile ? '10px' : '12px' }}
-              >
-                {member.name.split(' ')[0]}
-              </span>
-            </button>
-          );
-        })}
+                <div
+                  className={`
+                    rounded-full overflow-hidden border-2 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-[#22242c] dark:to-[#17181f]
+                    transition-all duration-300 shadow-md shadow-slate-300/50 dark:shadow-none
+                    ${isFocused
+                      ? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-400/40 dark:ring-sky-500/30'
+                      : 'border-slate-300 dark:border-[#2e3038] hover:border-sky-500/70'}
+                  `}
+                  style={{ width: avSize, height: avSize }}
+                >
+                  <Avatar src={member.photo} name={member.name} size={avSize} />
+                </div>
+                <span
+                  className={`font-bold leading-tight text-center truncate max-w-full transition-colors
+                    ${isFocused ? 'text-sky-600 dark:text-sky-300' : 'text-slate-800 dark:text-gray-300'}`}
+                  style={{ fontSize: isMobile ? '10px' : '12px' }}
+                >
+                  {member.name.split(' ')[0]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
         {/* ── Detail popup card ── */}
-        {focused !== null && (() => {
-          const aRad = getFocusedAngle(focused);
+        {focusedMember && (() => {
+          const aRad = getFocusedAngle(focusedSlot);
           const cardWidth = isMobile ? Math.min(320, winWidth - 32) : 320;
 
           // On desktop: opens radially in member's direction, clamped within screen
@@ -423,7 +530,7 @@ export default function TeamMembers() {
 
               <div
                 ref={cardRef}
-                key={focused}
+                key={focusedMember.id}
                 className={`
                   z-40 bg-white dark:bg-[#1e1f24] border border-slate-200 dark:border-[#2e3038] rounded-2xl
                   flex flex-col items-center text-center gap-3 sm:gap-4
@@ -464,19 +571,19 @@ export default function TeamMembers() {
                   style={{ width: isMobile ? 74 : 90, height: isMobile ? 74 : 90 }}
                 >
                   <Avatar
-                    src={members[focused].photo}
-                    name={members[focused].name}
+                    src={focusedMember.photo}
+                    name={focusedMember.name}
                     size={isMobile ? 74 : 90}
                   />
                 </div>
 
                 <div className="leading-snug">
-                  <p className="text-slate-900 dark:text-white text-base sm:text-lg font-bold">{members[focused].name}</p>
-                  <p className="text-sky-600 dark:text-sky-400 text-xs sm:text-sm font-mono mt-0.5">{members[focused].role}</p>
+                  <p className="text-slate-900 dark:text-white text-base sm:text-lg font-bold">{focusedMember.name}</p>
+                  <p className="text-sky-600 dark:text-sky-400 text-xs sm:text-sm font-mono mt-0.5">{focusedMember.role}</p>
                 </div>
 
                 <p className="text-slate-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed">
-                  {members[focused].description}
+                  {focusedMember.description}
                 </p>
               </div>
             </>
