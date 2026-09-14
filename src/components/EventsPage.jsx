@@ -62,7 +62,7 @@ export default function EventsPage({
 
       {/* Main Center Content: simply upcoming aligned from left to center */}
       <main className="max-w-[1200px] w-[92%] mx-auto py-16 sm:py-24 text-center flex flex-col items-center justify-center flex-grow">
-        <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black tracking-widest text-slate-900 dark:text-white uppercase leading-none select-none animate-pulse">
+        <h1 className="text-[10vw] sm:text-7xl lg:text-9xl font-black tracking-widest text-slate-900 dark:text-white uppercase leading-none select-none animate-pulse max-w-full overflow-hidden text-ellipsis px-2">
           Upcoming<span className="text-sky-600 dark:text-sky-400">...</span>
         </h1>
       </main>

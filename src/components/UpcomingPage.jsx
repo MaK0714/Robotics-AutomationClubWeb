@@ -75,7 +75,7 @@ export default function UpcomingPage({
         </div>
 
         {/* Large UPCOMING... Heading */}
-        <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black tracking-widest text-slate-900 dark:text-white uppercase leading-none select-none animate-pulse">
+        <h1 className="text-[10vw] sm:text-7xl lg:text-9xl font-black tracking-widest text-slate-900 dark:text-white uppercase leading-none select-none animate-pulse max-w-full overflow-hidden text-ellipsis px-2">
           UPCOMING<span className="text-sky-600 dark:text-sky-400">...</span>
         </h1>
       </main>
