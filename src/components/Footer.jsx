@@ -107,6 +107,13 @@ export default function Footer({ navigate = () => {} }) {
                 Wings
               </a>
               <a
+                href="#events"
+                onClick={(e) => handleScroll(e, '#events')}
+                className="text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+              >
+                Events
+              </a>
+              <a
                 href="#contact"
                 onClick={(e) => handleScroll(e, '#contact')}
                 className="text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"

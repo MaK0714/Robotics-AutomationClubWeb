@@ -9,7 +9,9 @@ import ReviewSection from './components/ReviewSection';
 import Footer from './components/Footer';
 import MembersPage from './components/MembersPage';
 import WingsSection from './components/WingsSection';
+import EventsSection from './components/EventsSection';
 import UpcomingPage from './components/UpcomingPage';
+import EventsPage from './components/EventsPage';
 import PeerLearningPage from './components/PeerLearningPage';
 import DigitalLibraryPage from './components/DigitalLibraryPage';
 
@@ -143,6 +145,17 @@ export default function App() {
     );
   }
 
+  // If route is /events, render Events Page
+  if (currentRoute === '/events') {
+    return (
+      <EventsPage
+        theme={theme}
+        toggleTheme={toggleTheme}
+        navigate={navigate}
+      />
+    );
+  }
+
   // Otherwise render main landing page
   return (
     <div className={`min-h-screen bg-slate-100 dark:bg-black text-slate-900 dark:text-white font-sans selection:bg-cyan-500 selection:text-black transition-colors duration-200 ${theme === 'dark' ? 'dark' : ''}`}>
@@ -157,13 +170,16 @@ export default function App() {
         {/* 2. Vision, Mission, Values (About) */}
         <MissionVisionValues />
 
-        {/* 3. WINGS Section (Between About and Team Pic) */}
+        {/* 3. WINGS Section */}
         <WingsSection navigate={navigate} />
 
-        {/* 4. Peer Learning, Digital Library */}
+        {/* 4. Peer Learning & Digital Library (Directly below Wings) */}
         <FeatureCards navigate={navigate} />
 
-        {/* 5. Large Team Photo Section */}
+        {/* 5. Events Section */}
+        <EventsSection navigate={navigate} />
+
+        {/* 6. Large Team Photo Section */}
         <TeamSection />
 
         {/* 5. Individual Team Members — Orbital carousel */}
