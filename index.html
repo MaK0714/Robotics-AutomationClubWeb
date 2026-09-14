@@ -74,21 +74,7 @@
         </div>
       </div>
     </div>
-    <script>
-      // Temporary error catcher for debugging
-      window.addEventListener('error', (event) => {
-        const errorText = document.createElement('div');
-        errorText.style = 'position:fixed;top:0;left:0;z-index:999999;background:rgba(255,0,0,0.9);color:white;padding:20px;font-family:monospace;max-width:100%;word-wrap:break-word;';
-        errorText.textContent = 'Resource/React Error: ' + (event.error ? event.error.stack : (event.message || (event.target && event.target.src ? 'Failed to load: ' + event.target.src : 'Unknown error')));
-        document.body.appendChild(errorText);
-      }, true);
-      window.addEventListener('unhandledrejection', (event) => {
-        const errorText = document.createElement('div');
-        errorText.style = 'position:fixed;top:0;left:0;z-index:999999;background:rgba(255,0,0,0.9);color:white;padding:20px;font-family:monospace;max-width:100%;word-wrap:break-word;';
-        errorText.textContent = 'Promise Error: ' + (event.reason ? event.reason.stack || event.reason : 'Unknown');
-        document.body.appendChild(errorText);
-      });
-    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
