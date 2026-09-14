@@ -3,7 +3,7 @@ import { addMember } from '../utils/membersStorage';
 
 // ─── CONFIGURATION ────────────────────────────────────────────────────────────
 // Change this to your official club email address whenever needed:
-const RECIPIENT_EMAIL = 'mayuresh20072024@gmail.com';
+const RECIPIENT_EMAIL = 'dbit.robovation@gmail.com';
 
 export default function ReviewSection({ navigate = () => {} }) {
   // ── Review Form State ──

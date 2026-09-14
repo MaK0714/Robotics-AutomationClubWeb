@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Linkedin, Instagram, Youtube, ArrowUp } from 'lucide-react';
+import { Linkedin, Instagram, Mail, ArrowUp } from 'lucide-react';
 
 export default function Footer({ navigate = () => {} }) {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -172,7 +172,7 @@ export default function Footer({ navigate = () => {} }) {
               </h4>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/robotics-and-automation-club-dbit-924ba1436?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
@@ -181,7 +181,7 @@ export default function Footer({ navigate = () => {} }) {
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/roboticsclub.dbit?stkn=Zzk0bTNrcjVveGFu"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -190,13 +190,11 @@ export default function Footer({ navigate = () => {} }) {
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="YouTube"
+                  href="mailto:dbit.robovation@gmail.com"
+                  aria-label="Email"
                   className="w-11 h-11 rounded-xl bg-slate-50 dark:bg-[#111217] border border-slate-200 dark:border-[#1f2129] flex items-center justify-center text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 hover:border-sky-500/50 hover:scale-105 active:scale-95 transition-all shadow-sm"
                 >
-                  <Youtube className="w-5 h-5" />
+                  <Mail className="w-5 h-5" />
                 </a>
               </div>
             </div>
