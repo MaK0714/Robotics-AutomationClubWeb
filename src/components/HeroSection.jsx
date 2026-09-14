@@ -21,10 +21,20 @@ export default function HeroSection() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Description inside same div */}
-            <div className="lg:col-span-5 xl:col-span-4 text-left z-10">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black tracking-tight">
-                Description
+            <div className="lg:col-span-5 xl:col-span-4 text-left z-10 flex flex-col justify-center space-y-4 sm:space-y-5 font-space">
+              <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-slate-950 tracking-tight leading-[1.15]">
+                Building the Future 
               </h2>
+
+              <p className="text-base sm:text-lg text-slate-800 font-normal leading-relaxed">
+                A student-driven community focused on exploring <span className="font-semibold text-slate-950">robotics</span>, <span className="font-semibold text-slate-950">automation</span>, and <span className="font-semibold text-slate-950">emerging technologies</span> through hands-on projects, innovation, and collaboration.
+              </p>
+
+              <div className="border-l-2 border-slate-400 pl-4 py-1">
+                <p className="text-sm sm:text-base text-slate-700 font-normal leading-relaxed">
+                  We aim to turn ideas into real-world solutions while building technical skills, creativity, and problem-solving capabilities.
+                </p>
+              </div>
             </div>
 
             {/* Video inside same div */}

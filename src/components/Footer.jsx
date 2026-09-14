@@ -1,7 +1,7 @@
 import React from 'react';
 import { Linkedin, Instagram, Youtube, ArrowUp } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ navigate = () => {} }) {
   const handleScroll = (e, href) => {
     if (href.startsWith('#')) {
       e.preventDefault();
@@ -74,13 +74,13 @@ export default function Footer() {
               >
                 Contact
               </a>
-              <a
-                href="#events"
-                onClick={(e) => handleScroll(e, '#events')}
-                className="text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+              <button
+                type="button"
+                onClick={() => navigate('/members')}
+                className="text-left text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors cursor-pointer"
               >
-                Events
-              </a>
+                Members List
+              </button>
               <a
                 href="#contact"
                 onClick={(e) => handleScroll(e, '#contact')}
