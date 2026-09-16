@@ -124,33 +124,40 @@ function Avatar({ src, name, size = 96 }) {
     setErrored(false);
   }, [src]);
 
-  const initials = name
-    .split(' ')
-    .map((w) => w[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-
-  if (!errored) {
-    return (
-      <img
-        src={src}
-        alt={name}
-        width={size}
-        height={size}
-        className="w-full h-full object-cover"
-        onError={() => setErrored(true)}
-      />
-    );
+  // Extract first and last letter for the fallback display
+  const words = name.trim().split(' ').filter(Boolean);
+  let extracted = '';
+  if (words.length >= 2) {
+    // First letter of first word, first letter of last word
+    extracted = words[0][0] + words[words.length - 1][0];
+  } else if (words.length === 1) {
+    // First and last letter of the single word
+    extracted = words[0][0] + (words[0].length > 1 ? words[0][words[0].length - 1] : '');
   }
+  const displayLetters = extracted.toUpperCase().slice(0, 2);
 
   return (
-    <span
-      className="w-full h-full flex items-center justify-center font-extrabold tracking-wider text-slate-800 dark:text-white select-none transition-colors"
-      style={{ fontSize: size * 0.34, background: 'transparent' }}
-    >
-      {initials}
-    </span>
+    <div className="relative w-full h-full bg-transparent flex items-center justify-center">
+      {/* Fallback initials displayed behind the image */}
+      <span
+        className="absolute inset-0 flex items-center justify-center font-extrabold tracking-widest text-slate-700 dark:text-white select-none transition-colors"
+        style={{ fontSize: size * 0.45 }}
+      >
+        {displayLetters}
+      </span>
+      
+      {/* The actual image. alt is empty so it won't render broken text if it fails */}
+      {!errored && (
+        <img
+          src={src}
+          alt=""
+          width={size}
+          height={size}
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={() => setErrored(true)}
+        />
+      )}
+    </div>
   );
 }
 

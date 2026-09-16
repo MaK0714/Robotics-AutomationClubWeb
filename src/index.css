@@ -28,3 +28,13 @@
 .glow-cyan:hover {
   box-shadow: 0 0 35px 0px rgba(6, 182, 212, 0.5);
 }
+
+/* Remove spinners from number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}

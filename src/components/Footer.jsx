@@ -120,14 +120,7 @@ export default function Footer({ navigate = () => {} }) {
               >
                 Leave Review
               </a>
-              <button
-                type="button"
-                onClick={() => navigate('/members')}
-                className="text-left text-slate-600 dark:text-neutral-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors cursor-pointer"
-              >
-                Members List
-              </button>
-              {/* Contact with Pop-up Card */}
+
               <div className="relative inline-block" ref={contactRef}>
                 <button
                   type="button"
@@ -221,12 +214,6 @@ export default function Footer({ navigate = () => {} }) {
               Designed and Developed by{' '}
               <span className="text-sky-600 dark:text-sky-400 font-semibold">
                 Mayuresh Kulkarni
-              </span>
-            </p>
-            <p className="text-sm sm:text-[1.05rem] text-slate-600 dark:text-neutral-400">
-              Maintained by{' '}
-              <span className="text-sky-600 dark:text-sky-400 font-semibold">
-                Rohan Jagdale
               </span>
             </p>
           </div>

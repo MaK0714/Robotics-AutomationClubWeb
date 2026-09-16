@@ -7,7 +7,7 @@ import TeamSection from './components/TeamSection';
 import TeamMembers from './components/TeamMembers';
 import ReviewSection from './components/ReviewSection';
 import Footer from './components/Footer';
-import MembersPage from './components/MembersPage';
+
 import WingsSection from './components/WingsSection';
 import EventsSection from './components/EventsSection';
 import UpcomingPage from './components/UpcomingPage';
@@ -88,16 +88,7 @@ export default function App() {
     }
   }, [currentRoute]);
 
-  // If route is /members (or direct link access), render the dedicated Members Page
-  if (currentRoute === '/members') {
-    return (
-      <MembersPage
-        theme={theme}
-        toggleTheme={toggleTheme}
-        navigate={navigate}
-      />
-    );
-  }
+
 
   // If route is /wings/software (or /software), render Software Upcoming Page
   if (currentRoute === '/wings/software' || currentRoute === '/software' || currentRoute === '/wings-software') {
