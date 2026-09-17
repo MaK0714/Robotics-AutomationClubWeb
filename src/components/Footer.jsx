@@ -213,8 +213,11 @@ export default function Footer({ navigate = () => {} }) {
             <p className="text-sm sm:text-[1.05rem] text-slate-600 dark:text-neutral-400">
               Faculty coordinator:{' '}
               <span className="text-sky-600 dark:text-sky-400 font-semibold">
-                Madhavi Pednekar (HOD EXTC)
+                Prof. Madhavi Pednekar
               </span>
+            </p>
+            <p className="text-xs sm:text-[0.95rem] text-slate-500 dark:text-neutral-500 font-medium">
+              (HOD ELECTRONICS AND TELECOMMUNICATION)
             </p>
           </div>
           <p className="text-xs sm:text-[0.95rem] text-slate-500 dark:text-neutral-500 font-mono">
