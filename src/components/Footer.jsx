@@ -211,9 +211,9 @@ export default function Footer({ navigate = () => {} }) {
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <div className="flex flex-col gap-1 text-center md:text-left">
             <p className="text-sm sm:text-[1.05rem] text-slate-600 dark:text-neutral-400">
-              Designed and Developed by{' '}
+              Faculty coordinator:{' '}
               <span className="text-sky-600 dark:text-sky-400 font-semibold">
-                Mayuresh Kulkarni
+                Madhavi Pednekar (HOD EXTC)
               </span>
             </p>
           </div>

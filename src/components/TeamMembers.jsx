@@ -19,7 +19,7 @@ const members = [
   },
   {
     id: 3,
-    name: 'Lipun',
+    name: 'Lipun Maharana',
     role: 'Vice Chairperson',
     description: 'Hardware maestro responsible for, motor control and all things mechanical.',
     photo: '/members/jake.jpg',
