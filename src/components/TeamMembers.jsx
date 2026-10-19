@@ -108,6 +108,13 @@ const members = [
     description: "Responsible for all pr related decisions.",
     photo: '/members/nina.jpg',
   },
+      {
+    id: 15,
+    name: 'Jordan',
+    role: 'Joint-Pr head',
+    description: "Responsible for all pr related decisions.",
+    photo: '/members/nina.jpg',
+  },
 
   
 ];

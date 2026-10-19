@@ -4,7 +4,7 @@ A high-performance, modern static website for the **Robotics and Automation Club
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Pure Static Frontend:** Zero backend required. Outputs static assets ready for GitHub Pages, Netlify, Vercel, or Firebase Hosting.
 - **Sticky Navbar:** Clean glassmorphism header with logo, smooth-scrolling anchor links, and mobile-responsive drawer menu.
@@ -28,7 +28,7 @@ A high-performance, modern static website for the **Robotics and Automation Club
 
 ---
 
-## 💻 Getting Started
+## Getting Started
 
 ### 1. Run Local Development Server
 ```bash
